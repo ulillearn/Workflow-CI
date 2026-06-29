@@ -26,12 +26,12 @@ jobs:
       - name: Install MLflow and Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mlflow==2.19.0 pandas numpy scikit-learn
-
+          pip install mlflow==2.19.0 pandas numpy scikit-learn 
+      
       - name: Run MLflow Project (Retraining)
         run: |
           cd MLProject
-          mlflow run . --no-conda 
+          mlflow run . --env-manager=local
 
       - name: Upload Model Artifact to GitHub
         uses: actions/upload-artifact@v4
