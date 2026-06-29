@@ -29,8 +29,33 @@ def main():
     output_dir = "model_output"
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
+    
+    custom_env = {
+        "name": "it-role-classification-env",
+        "channels": [
+            "conda-forge",
+            "nodefaults" 
+        ],
+        "dependencies": [
+            "python=3.12.7",
+            "pip",
+            {
+                "pip": [
+                    "mlflow==2.19.0",
+                    "scikit-learn",
+                    "pandas",
+                    "numpy"
+                ]
+            }
+        ]
+    }
         
-    mlflow.sklearn.save_model(model, output_dir)
+    # Menyimpan model beserta custom environment
+    mlflow.sklearn.save_model(
+        sk_model=model, 
+        path=output_dir,
+        conda_env=custom_env
+    )
     print(f"Model berhasil disimpan di direktori {output_dir}/ siap untuk Docker.")
 
 if __name__ == "__main__":
