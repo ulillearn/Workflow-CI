@@ -49,7 +49,8 @@ jobs:
       - name: Build Docker Image via MLflow
         run: |
           cd MLProject
-          mlflow models build-docker -m model_output -n ${{ secrets.DOCKER_USERNAME }}/it-role-model:latest
+          # Menambahkan --env-manager=conda untuk menghindari bug Python 3.9
+          mlflow models build-docker -m model_output -n ${{ secrets.DOCKER_USERNAME }}/it-role-model:latest --env-manager=conda
 
       - name: Push Docker Image to Docker Hub
         run: |
